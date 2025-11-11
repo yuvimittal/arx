@@ -203,6 +203,11 @@ class TokenList:
         self.cur_tok = self.get_token()
         return self.cur_tok
 
+class LexerError(Exception):
+    """Custom exception for lexer errors."""
+    def __init__(self, message: str, location: SourceLocation):
+        super().__init__(f"{message} at line {location.line}, col {location.col}")
+        self.location = location
 
 class Lexer:
     """
