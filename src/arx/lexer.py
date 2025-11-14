@@ -203,11 +203,16 @@ class TokenList:
         self.cur_tok = self.get_token()
         return self.cur_tok
 
+
 class LexerError(Exception):
     """Custom exception for lexer errors."""
+
     def __init__(self, message: str, location: SourceLocation):
-        super().__init__(f"{message} at line {location.line}, col {location.col}")
+        super().__init__(
+            f"{message} at line {location.line}, col {location.col}"
+        )
         self.location = location
+
 
 class Lexer:
     """
@@ -323,8 +328,8 @@ class Lexer:
                     dot_count += 1
                     if dot_count > 1:
                         raise LexerError(
-                            "Invalid number format: multiple decimal points", 
-                            self.lex_loc
+                            "Invalid number format: multiple decimal points",
+                            self.lex_loc,
                         )
                 num_str += self.last_char
                 self.last_char = self.advance()
