@@ -316,7 +316,16 @@ class Lexer:
         # Number: [0-9.]+
         if self.last_char.isdigit() or self.last_char == ".":
             num_str = ""
+            dot_count = 0
+
             while self.last_char.isdigit() or self.last_char == ".":
+                if self.last_char == ".":
+                    dot_count += 1
+                    if dot_count > 1:
+                        raise LexerError(
+                            "Invalid number format: multiple decimal points", 
+                            self.lex_loc
+                        )
                 num_str += self.last_char
                 self.last_char = self.advance()
 
